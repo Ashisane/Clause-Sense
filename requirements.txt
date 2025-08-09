@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+requests
+pydantic
+langchain
+pypdf
+faiss-cpu
+python-dotenv
+groq
