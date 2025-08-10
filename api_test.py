@@ -67,7 +67,7 @@ Rules:
 - Partially Correct → main point is right, but some details are missing or slightly inaccurate
 - Incorrect → any key fact is wrong or contradicts the expected answer
 
-Respond with only one word: Correct, Partially Correct, or Incorrect.
+Respond with : Correct, Partially Correct, or Incorrect. State the reason in one concise line
     """
     resp = groq_client.chat.completions.create(
         model="llama3-70b-8192",

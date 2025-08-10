@@ -61,12 +61,12 @@ def retrieve_top_chunks(question, chunks, index, embeddings, k=8):
 # Query LLaMA (Groq)
 def query_llm(context, question):
     prompt = f"""
-You are an insurance policy QA assistant.
-You must answer strictly and only using the provided context.
-- Do NOT guess or add extra information not present in the context.
-- Extract the answer exactly as written in the document, making minimal edits only for grammar or readability.
-- Preserve numbers, dates, and legal terms exactly as they appear.
-- If the answer is not clearly and explicitly stated in the context, respond exactly with: "Not mentioned in the document."
+You are an insurance policy QA assistant. To answer the question you need to follow three rules.
+IMPORTANT - Give a compiled answer consisting of only the important information in form of sentence in same wording as of the context provided using the 3 rules mentioned below:
+
+1) Read what is asked and then strictly use only the context to answer the question.
+2) Keep the numbers/legal terms intact in the answer.
+3) Use this format to generate the sentence - 1) Answer the direct question. 2) Mention important surrounding conditions that are related to the answer that are in the clause. 3) Provide source to your explanation if there exists any eg-"clause number or policy name"
 
 Context:
 {context}
@@ -79,7 +79,7 @@ Answer:
     chat_completion = groq_client.chat.completions.create(
         messages=[{"role": "user", "content": prompt}],
         model="llama3-70b-8192",
-        temperature=0  # zero temp = max accuracy
+        temperature=0.1  # zero temp = max accuracy
     )
     return chat_completion.choices[0].message.content.strip()
 
